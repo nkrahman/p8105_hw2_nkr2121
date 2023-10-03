@@ -90,6 +90,14 @@ mrtrashwheel <- read_excel("~/Documents/Columbia/Semester 3/Data1/202309 Trash W
   mutate(name = "mrtrash")
 ```
 
+Next, doing the same for Professor Trashwheel
+
+```{r}
+proftrashwheel <- read_excel("~/Documents/Columbia/Semester 3/Data1/202309 Trash Wheel Collection Data.xlsx", sheet = "Professor Trash Wheel", range = "A2:M108") |> 
+  janitor::clean_names() |> 
+  mutate(name = "proftrash")
+```
+
 
 
 
