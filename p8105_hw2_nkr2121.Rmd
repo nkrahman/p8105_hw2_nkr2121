@@ -157,7 +157,7 @@ The proportion of women in the study who are APOE4 carriers is
 
 Importing the amyloid dataset. 
 
-```{r}
+```{r, message = FALSE}
 amyloid <- read_csv("~/Documents/Columbia/Semester 3/Data1/data_mci/mci_amyloid.csv", 
     skip = 1) |> 
   janitor::clean_names() |> 
@@ -166,8 +166,19 @@ amyloid <- read_csv("~/Documents/Columbia/Semester 3/Data1/data_mci/mci_amyloid.
 
 Important steps in importing the amyloid data set is to skip 1 row, because there were two rows used to describe the variables in the data set and renaming the id column to match that of the baseline data set. 
 
+Seeing which participants appear in only the baseline data set.
+```{r, message = FALSE}
+anti_join(baseline, amyloid, by = "id")
+```
 
+Participant ID's `r anti_join(baseline, amyloid, by = "id") |> pull(id)` appear in the baseline data set, but not the amyloid one. 
 
+Seeing which participants appear in only the amyloid data set. 
+```{r, message = FALSE}
+anti_join(amyloid, baseline, by = "id")
+```
+
+Participant ID's `r anti_join(amyloid, baseline, by = "id") |> pull(id)` appear in the baseline data set, but not the amyloid one. 
 
 
 
