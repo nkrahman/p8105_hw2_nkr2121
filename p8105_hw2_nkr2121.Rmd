@@ -6,6 +6,7 @@ output: github_document
 
 ```{r, echo = FALSE, message = FALSE}
 library(tidyverse)
+library(readxl)
 ```
 
 ## Problem 1
@@ -78,4 +79,25 @@ In the next step, we pulled in and cleaned the snp data set. After cleaning, thi
 In the following step, we pulled in and cleaned the unemployment data set. After cleaning, this data set has 3 variables: year, month, and unemployment_rate. The year and month variables tell us the date of observation, and the unemployement_rate variable tells us the percentage of unemployment on the given year/month 
 
 I then merged these 3 data sets into a new data set titled "problem1". This dataset has 11 variables (year, month, gov_gop, sen_gop, rep_gop, gov_dem, sen_dem, rep_dem, president, close, unemployment_rate). This dataset has 822 rows.
+
+## Problem 2
+
+First, importing the Mr. Trashwheel data
+
+```{r}
+mrtrashwheel <- read_excel("~/Documents/Columbia/Semester 3/Data1/202309 Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N586") |> 
+  janitor::clean_names() |> 
+  mutate(name = "mrtrash")
+```
+
+
+
+
+
+
+
+
+
+
+
 
