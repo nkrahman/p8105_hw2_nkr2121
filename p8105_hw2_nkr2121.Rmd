@@ -1,0 +1,25 @@
+---
+title: "p8105_hw_nkr2121"
+author: "Nihaal Rahman"
+output: github_document
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(tidyverse)
+```
+
+## Problem 1
+
+Let's begin by loading in pols_month the data set and cleaning it up. 
+
+```{r}
+pols_month <- read_csv("~/Documents/Columbia/Semester 3/Data1/fivethirtyeight_datasets/pols-month.csv") |> 
+  separate(mon, into = c("year", "month", "day"), sep = '-') |> 
+  mutate(month = month.name[as.numeric(month)],
+         president = case_when(
+           as.numeric(prez_gop) > 0 ~ "gop",
+           as.numeric(prez_dem) > 0 ~ "dem"
+         )) |> 
+  select(-c("prez_dem", "prez_gop", "day"))
+```
+
