@@ -109,7 +109,15 @@ gwynnda = read_excel("~/Documents/Columbia/Semester 3/Data1/202309 Trash Wheel C
          homes_powered = (weight_tons * 500) / 30)
 ```
 
+Now I will merge the data sets 
 
+```{r}
+mrtrashwheel = mrtrashwheel |> mutate(
+  year = as.numeric(year)
+)
+
+problem2 = bind_rows(mrtrashwheel, proftrashwheel, gwynnda)
+```
 
 
 
