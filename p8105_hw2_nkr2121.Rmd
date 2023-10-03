@@ -85,7 +85,7 @@ I then merged these 3 data sets into a new data set titled "problem1". This data
 First, importing the Mr. Trashwheel data
 
 ```{r}
-mrtrashwheel <- read_excel("~/Documents/Columbia/Semester 3/Data1/202309 Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N586") |> 
+mrtrashwheel = read_excel("~/Documents/Columbia/Semester 3/Data1/202309 Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N586") |> 
   janitor::clean_names() |> 
   mutate(name = "mrtrash")
 ```
@@ -93,10 +93,19 @@ mrtrashwheel <- read_excel("~/Documents/Columbia/Semester 3/Data1/202309 Trash W
 Next, doing the same for Professor Trashwheel
 
 ```{r}
-proftrashwheel <- read_excel("~/Documents/Columbia/Semester 3/Data1/202309 Trash Wheel Collection Data.xlsx", sheet = "Professor Trash Wheel", range = "A2:M108") |> 
+proftrashwheel = read_excel("~/Documents/Columbia/Semester 3/Data1/202309 Trash Wheel Collection Data.xlsx", sheet = "Professor Trash Wheel", range = "A2:M108") |> 
   janitor::clean_names() |> 
   mutate(name = "proftrash")
 ```
+
+Finally, doing the same for Gwynnda
+
+```{r}
+gwynnda = read_excel("~/Documents/Columbia/Semester 3/Data1/202309 Trash Wheel Collection Data.xlsx", sheet = "Gwynnda Trash Wheel", range = "A2:L157") |> 
+  janitor::clean_names() |> 
+  mutate(name = "gwynnda")
+```
+
 
 
 
