@@ -33,3 +33,30 @@ snp <- read_csv("~/Documents/Columbia/Semester 3/Data1/fivethirtyeight_datasets/
   select(c("year", "month", "close"))
 ```
 
+Now moving onto the unemployment data set. 
+
+```{r}
+unemployment <- read_csv("~/Documents/Columbia/Semester 3/Data1/fivethirtyeight_datasets/unemployment.csv") |> 
+  janitor::clean_names() |> 
+  pivot_longer(
+    cols = c("jan","feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"),
+    names_to = "month",
+    values_to = "unemployment_rate") |> 
+  mutate(month = case_match(
+    month,
+    "jan" ~ "January",
+    "feb" ~ "February",
+    "mar" ~ "March",
+    "apr" ~ "April",
+    "may" ~ "May",
+    "jun" ~ "June",
+    "jul" ~ "July",
+    "aug" ~ "August",
+    "sep" ~ "September",
+    "oct" ~ "October",
+    "nov" ~ "November",
+    "dec" ~ "December"
+    ))
+```
+
+
