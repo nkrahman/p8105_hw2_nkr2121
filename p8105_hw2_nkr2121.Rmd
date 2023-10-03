@@ -148,12 +148,25 @@ baseline = read_csv("~/Documents/Columbia/Semester 3/Data1/data_mci/MCI_baseline
       filter(age_at_onset > as.numeric(current_age) | is.na(age_at_onset))
 ```
 
-Some important steps in cleaning this data set were skipping 1 row, because there were two rows being used to describe the variables in the data set; recoding the sex and apoe4 variables to have more descriptive, character-values; and filtering the dataset to remove those observations where the onset age came before the participant's current age (did not want MCI at baseline). 
+Some important steps in cleaning this data set were skipping 1 row, because there were two rows used to describe the variables in the data set; re-coding the sex and apoe4 variables to have more descriptive, character-values; and filtering the data set to remove those observations where the onset age came before the participant's current age (did not want MCI at baseline). 
 
 The average baseline age is `r baseline |> pull(current_age) |> mean() |> round(2)` years.
 
 The proportion of women in the study who are APOE4 carriers is
 `r nrow(filter(baseline, sex == "female" & apoe4 == "carrier")) / nrow(filter(baseline, sex== "female"))` (`r filter(baseline, sex == "female", apoe4 == "carrier") |> count()`/`r filter(baseline, sex == "female") |> count()`).
+
+Importing the amyloid dataset. 
+
+```{r}
+amyloid <- read_csv("~/Documents/Columbia/Semester 3/Data1/data_mci/mci_amyloid.csv", 
+    skip = 1) |> 
+  janitor::clean_names() |> 
+  rename(id = study_id)
+```
+
+Important steps in importing the amyloid data set is to skip 1 row, because there were two rows used to describe the variables in the data set and renaming the id column to match that of the baseline data set. 
+
+
 
 
 
