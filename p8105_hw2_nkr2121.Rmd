@@ -87,7 +87,8 @@ First, importing the Mr. Trashwheel data
 ```{r}
 mrtrashwheel = read_excel("~/Documents/Columbia/Semester 3/Data1/202309 Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N586") |> 
   janitor::clean_names() |> 
-  mutate(name = "mrtrash")
+  mutate(name = "mrtrash",
+         homes_powered = (weight_tons * 500) / 30)
 ```
 
 Next, doing the same for Professor Trashwheel
@@ -95,7 +96,8 @@ Next, doing the same for Professor Trashwheel
 ```{r}
 proftrashwheel = read_excel("~/Documents/Columbia/Semester 3/Data1/202309 Trash Wheel Collection Data.xlsx", sheet = "Professor Trash Wheel", range = "A2:M108") |> 
   janitor::clean_names() |> 
-  mutate(name = "proftrash")
+  mutate(name = "proftrash",
+         homes_powered = (weight_tons * 500) / 30)
 ```
 
 Finally, doing the same for Gwynnda
@@ -103,8 +105,10 @@ Finally, doing the same for Gwynnda
 ```{r}
 gwynnda = read_excel("~/Documents/Columbia/Semester 3/Data1/202309 Trash Wheel Collection Data.xlsx", sheet = "Gwynnda Trash Wheel", range = "A2:L157") |> 
   janitor::clean_names() |> 
-  mutate(name = "gwynnda")
+  mutate(name = "gwynnda",
+         homes_powered = (weight_tons * 500) / 30)
 ```
+
 
 
 
