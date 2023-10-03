@@ -113,14 +113,22 @@ Now I will merge the data sets
 
 ```{r}
 mrtrashwheel = mrtrashwheel |> mutate(
-  year = as.numeric(year)
-)
+  year = as.numeric(year))
 
 problem2 = bind_rows(mrtrashwheel, proftrashwheel, gwynnda)
 ```
+The combined data set problem 2 has 845 observations and 15 variables. Some key variables
+are the name (of the trash wheel), weight_tons (amount of total litter), and the houses powered. 
 
+The total weight of trash collected by Professor Trash Wheel was `r sum(pull(proftrashwheel, weight_tons))` tons.
 
+```{r, echo = FALSE}
+gwynnda_july21_cigs = problem2 |> 
+  filter(year == 2021 & month == "July" & name == "gwynnda") |> 
+  summarize(sum = sum(cigarette_butts))
+```
 
+The total number of cigarette butts collected by Gwynnda in July of 2021 was `r as.character(gwynnda_july21_cigs)`
 
 
 
