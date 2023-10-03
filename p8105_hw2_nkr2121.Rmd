@@ -72,13 +72,13 @@ problem1 = left_join(pols, snp, by=c("year","month")) |>
   left_join(unemployment, by=c("year","month"))
 ```
 
-In the first step, we pulled in and cleaned the the pols data set. After cleaning, this data set has `r ncol(pols)` variables: year, month, gov_gop, sen_gop, rep_gop, gov_dem, sen_dem, rep_dem, and president. The year and month variables tell us when the count was recorded. The gov_gop and gov_dem variables tell us how many governors were republicans or democrats, respectively, when the count was taken. The sen_gop and sen_dem variables tell us how many senators were republicans or democrats, respectively, when the count was taken. The rep_gop and rep_dem variables tell us how many house members were republicans or democrats, respectively, whe nthe count was taken. Finally, the president variable tells us if the president at the time was republican or democrat when the count was taken. 
+In the first step, we pulled in and cleaned the the pols data set. After cleaning, this data set has `r ncol(pols)` variables: `r colnames(pols)`. The year and month variables tell us when the count was recorded. The gov_gop and gov_dem variables tell us how many governors were republicans or democrats, respectively, when the count was taken. The sen_gop and sen_dem variables tell us how many senators were republicans or democrats, respectively, when the count was taken. The rep_gop and rep_dem variables tell us how many house members were republicans or democrats, respectively, whe nthe count was taken. Finally, the president variable tells us if the president at the time was republican or democrat when the count was taken. 
 
-In the next step, we pulled in and cleaned the snp data set. After cleaning, this data set has `r ncol(snp)` variables: year, month, and close. The year and month variables tell us when the observation was taken, and the close variable tells us the closing values of the S&P stock index on the associated date. 
+In the next step, we pulled in and cleaned the snp data set. After cleaning, this data set has `r ncol(snp)` variables: `r colnames(snp)`. The year and month variables tell us when the observation was taken, and the close variable tells us the closing values of the S&P stock index on the associated date. 
 
-In the following step, we pulled in and cleaned the unemployment data set. After cleaning, this data set has `r ncol(unemployment)` variables: year, month, and unemployment_rate. The year and month variables tell us the date of observation, and the unemployement_rate variable tells us the percentage of unemployment on the given year/month 
+In the following step, we pulled in and cleaned the unemployment data set. After cleaning, this data set has `r ncol(unemployment)` variables: `r colnames(unemployment)`. The year and month variables tell us the date of observation, and the unemployement_rate variable tells us the percentage of unemployment on the given year/month 
 
-I then merged these 3 data sets into a new data set titled "problem1". This dataset has `r ncol(problem1)` variables (year, month, gov_gop, sen_gop, rep_gop, gov_dem, sen_dem, rep_dem, president, close, unemployment_rate). This dataset has 822 rows, and the range of years in this data set is `r problem1 |> pull(year) |> min()` to `r problem1 |> pull(year) |> max()`. 
+I then merged these 3 data sets into a new data set titled "problem1". This dataset has `r ncol(problem1)` variables: `r colnames(problem1)`. This dataset has 822 rows, and the range of years in this data set is `r problem1 |> pull(year) |> min()` to `r problem1 |> pull(year) |> max()`. 
 
 ## Problem 2
 
@@ -117,8 +117,7 @@ mrtrashwheel = mrtrashwheel |> mutate(
 
 problem2 = bind_rows(mrtrashwheel, proftrashwheel, gwynnda)
 ```
-The combined data set problem 2 has `r nrow(problem2)` observations and `r ncol(problem2)` variables. Some key variables
-are name (name of the trash wheel), weight_tons (amount of total litter in tons), and the houses powered (# of houses powered). 
+The combined data set problem 2 has `r nrow(problem2)` observations and `r ncol(problem2)` variables. Some key variables are name (name of the trash wheel), weight_tons (amount of total litter in tons), and the houses powered (# of houses powered). 
 
 The total weight of trash collected by Professor Trash Wheel was `r sum(pull(proftrashwheel, weight_tons))` tons.
 
@@ -166,21 +165,33 @@ amyloid <- read_csv("~/Documents/Columbia/Semester 3/Data1/data_mci/mci_amyloid.
 
 Important steps in importing the amyloid data set is to skip 1 row, because there were two rows used to describe the variables in the data set and renaming the id column to match that of the baseline data set. 
 
-Seeing which participants appear in only the baseline data set.
-```{r, message = FALSE}
+Seeing which participants appear in only the baseline data set:
+
+```{r, results = FALSE}
 anti_join(baseline, amyloid, by = "id")
 ```
 
 Participant ID's `r anti_join(baseline, amyloid, by = "id") |> pull(id)` appear in the baseline data set, but not the amyloid one. 
 
-Seeing which participants appear in only the amyloid data set. 
-```{r, message = FALSE}
+Seeing which participants appear in only the amyloid data set:
+
+```{r, results = FALSE}
 anti_join(amyloid, baseline, by = "id")
 ```
 
 Participant ID's `r anti_join(amyloid, baseline, by = "id") |> pull(id)` appear in the baseline data set, but not the amyloid one. 
 
+Combining the data sets to retain only those contained in both data sets:
 
+```{r}
+problem3 = inner_join(baseline, amyloid, by = "id")
+```
 
+The combined data set, titled "problem3" has `r ncol(problem3)` variables and `r nrow(problem3)` observations. The variables included are `r colnames(problem3)`.
 
+Now I will export this combined data set as a .csv file: 
+
+```{r}
+write_csv(problem3, "~/Documents/Columbia/Semester 3/Data1/data_mci/combined.csv")
+```
 
