@@ -10,7 +10,7 @@ library(tidyverse)
 
 ## Problem 1
 
-Let's begin by loading in pols_month the data set and cleaning it up. 
+Let's begin by loading in pols_month data set and cleaning it up. 
 
 ```{r}
 pols_month <- read_csv("~/Documents/Columbia/Semester 3/Data1/fivethirtyeight_datasets/pols-month.csv") |> 
@@ -21,5 +21,15 @@ pols_month <- read_csv("~/Documents/Columbia/Semester 3/Data1/fivethirtyeight_da
            as.numeric(prez_dem) > 0 ~ "dem"
          )) |> 
   select(-c("prez_dem", "prez_gop", "day"))
+```
+
+Now moving on to the snp data set.  
+
+```{r}
+snp <- read_csv("~/Documents/Columbia/Semester 3/Data1/fivethirtyeight_datasets/snp.csv") |> 
+  separate(date, into = c("month", "year", "day"), sep = '/') |> 
+  mutate(month = month.name[as.numeric(month)]) |> 
+  arrange("year", "month") |> 
+  select(c("year", "month", "close"))
 ```
 
